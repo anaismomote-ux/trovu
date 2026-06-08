@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\anais\\\\Downloads\\\\\" | Select-String \"trovu\\\\|stitch\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\anais\\\\Downloads\\\\\" | Where-Object { $_.Name -match \"trovu|stitch\" })",
+      "PowerShell(Head -50)",
+      "PowerShell(Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::ExtractToDirectory\\(\"C:\\\\Users\\\\anais\\\\Downloads\\\\stitch_trovu_service_marketplace_ecosystem \\(1\\).zip\", \"C:\\\\Users\\\\anais\\\\Downloads\\\\stitch_extracted\"\\))"
+    ]
+  }
+}
