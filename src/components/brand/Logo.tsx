@@ -3,6 +3,8 @@ import Link from "next/link";
 interface LogoProps {
   size?: "sm" | "md" | "lg";
   href?: string;
+  className?: string;
+  light?: boolean;
 }
 
 const sizes = {
@@ -11,10 +13,13 @@ const sizes = {
   lg: { pin: 48, font: "text-3xl", gap: "gap-3" },
 };
 
-export function Logo({ size = "md", href = "/" }: LogoProps) {
+export function Logo({ size = "md", href = "/", className = "", light = false }: LogoProps) {
   const s = sizes[size];
+  const textColor = light ? "white" : "#2A3B30";
+  const vuColor  = light ? "rgba(255,255,255,0.75)" : "#6BA07E";
+
   const inner = (
-    <span className={`flex items-center ${s.gap} select-none`}>
+    <span className={`flex items-center ${s.gap} select-none ${className}`}>
       <svg
         width={s.pin}
         height={Math.round(s.pin * 1.2)}
@@ -23,17 +28,17 @@ export function Logo({ size = "md", href = "/" }: LogoProps) {
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <circle cx="20" cy="18" r="18" fill="#6BA07E" />
-        <path d="M14 32 L20 48 L26 32" fill="#6BA07E" />
+        <circle cx="20" cy="18" r="18" fill={light ? "rgba(255,255,255,0.25)" : "#6BA07E"} />
+        <path d="M14 32 L20 48 L26 32" fill={light ? "rgba(255,255,255,0.25)" : "#6BA07E"} />
         <rect x="9"  y="12" width="22" height="4"  rx="2" fill="white" />
         <rect x="17" y="12" width="6"  height="14" rx="2" fill="white" />
         <circle cx="32" cy="6" r="5.5" fill="#C4883A" />
       </svg>
       <span
         className={`font-serif ${s.font} font-semibold tracking-tight leading-none`}
-        style={{ color: "#2A3B30", letterSpacing: "-0.02em" }}
+        style={{ color: textColor, letterSpacing: "-0.02em" }}
       >
-        tro<span style={{ color: "#6BA07E" }}>vu</span>
+        tro<span style={{ color: vuColor }}>vu</span>
       </span>
     </span>
   );

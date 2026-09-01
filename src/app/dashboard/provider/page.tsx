@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Power, Bell, TrendingUp, Calendar, MessageSquare, Star,
@@ -280,7 +280,7 @@ export default function ProviderDashboard() {
 
 function CountDown({ start, onEnd }: { start: number; onEnd: () => void }) {
   const [secs, setSecs] = useState(start);
-  useState(() => {
+  useEffect(() => {
     const id = setInterval(() => {
       setSecs((s) => {
         if (s <= 1) { clearInterval(id); onEnd(); return 0; }
@@ -288,7 +288,7 @@ function CountDown({ start, onEnd }: { start: number; onEnd: () => void }) {
       });
     }, 1000);
     return () => clearInterval(id);
-  });
+  }, [onEnd]);
   return (
     <p className="text-[16px] font-bold" style={{ color: secs < 15 ? "var(--error)" : "var(--text)" }}>
       {secs}s
