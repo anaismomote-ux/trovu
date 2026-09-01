@@ -3,76 +3,109 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Logo } from "@/components/brand/Logo";
+import { Search, Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Discover",          href: "/search" },
+  { label: "Categories",        href: "/categories" },
+  { label: "Gift Vouchers",     href: "/gift-vouchers" },
+  { label: "Become a Provider", href: "/become-a-provider" },
+];
 
 export default function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const navLinks = [
-    { label: "Discover", href: "/search" },
-    { label: "Categories", href: "/categories" },
-    { label: "Vouchers", href: "/gift-vouchers" },
-    { label: "Become a Provider", href: "/become-a-provider" },
-  ];
-
   return (
-    <nav className="fixed top-0 w-full glass-header z-50 border-b border-outline-variant/30 h-20">
-      <div className="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-full">
-        {/* Logo + Nav */}
-        <div className="flex items-center gap-12">
-          <Link href="/" className="font-headline-lg text-headline-lg text-on-background tracking-tight font-bold">
-            TROVU
-          </Link>
-          <div className="hidden md:flex gap-8 items-center">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={`font-label-md text-label-md transition-colors duration-300 ${
-                    isActive
-                      ? "text-primary border-b-2 border-primary pb-1"
-                      : "text-on-surface-variant hover:text-primary"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+    <nav
+      className="fixed top-0 w-full z-50 h-[72px]"
+      style={{
+        background: "rgba(237,234,224,0.88)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderBottom: "1.5px solid var(--border)",
+      }}
+    >
+      <div className="flex items-center justify-between h-full max-w-[1200px] mx-auto px-6 lg:px-10">
+
+        {/* Left — logo + nav */}
+        <div className="flex items-center gap-10">
+          <Logo size="sm" />
+          <div className="hidden md:flex items-center gap-7">
+            {navLinks.map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                className="text-[11px] font-semibold tracking-[0.07em] uppercase transition-colors duration-200"
+                style={{ color: pathname === l.href ? "var(--green)" : "var(--body)" }}
+              >
+                {l.label}
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Right side */}
-        <div className="flex items-center gap-6">
-          <Link href="/search" className="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">
-            search
+        {/* Right — actions */}
+        <div className="flex items-center gap-4">
+          <Link
+            href="/search"
+            className="hidden sm:flex items-center justify-center w-9 h-9 rounded-lg transition-colors hover:bg-[var(--surface-2)]"
+            style={{ color: "var(--muted)" }}
+          >
+            <Search size={17} />
           </Link>
-          <div className="hidden sm:flex items-center gap-4">
-            <Link href="/login" className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-300">
+          <div className="hidden sm:flex items-center gap-3">
+            <Link
+              href="/login"
+              className="text-[11px] font-semibold tracking-[0.07em] uppercase transition-colors"
+              style={{ color: "var(--body)" }}
+            >
               Log In
             </Link>
-            <Link href="/signup" className="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md hover:bg-on-primary-container transition-all">
-              Sign Up
+            <Link
+              href="/signup"
+              className="text-[11px] font-semibold tracking-[0.07em] uppercase px-5 py-2.5 rounded-full text-white transition-all hover:opacity-90"
+              style={{ background: "var(--green)" }}
+            >
+              Get Started
             </Link>
           </div>
-          <button className="md:hidden material-symbols-outlined" onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? "close" : "menu"}
+          <button
+            className="md:hidden p-2 rounded-lg"
+            style={{ color: "var(--body)" }}
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-outline-variant/30 px-6 py-8 space-y-6">
-          {navLinks.map((link) => (
-            <Link key={link.label} href={link.href} className="block font-label-md text-label-md text-on-surface-variant hover:text-primary">
-              {link.label}
+      {/* Mobile drawer */}
+      {open && (
+        <div
+          className="md:hidden px-6 py-6 space-y-4"
+          style={{ background: "var(--surface)", borderTop: "1.5px solid var(--border)" }}
+        >
+          {navLinks.map((l) => (
+            <Link
+              key={l.label}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="block text-[12px] font-semibold tracking-[0.07em] uppercase py-1"
+              style={{ color: "var(--body)" }}
+            >
+              {l.label}
             </Link>
           ))}
-          <div className="flex gap-4 pt-4 border-t border-outline-variant/30">
-            <Link href="/login" className="font-label-md text-label-md text-on-surface-variant">Log In</Link>
-            <Link href="/signup" className="bg-primary text-on-primary px-6 py-2.5 rounded-full font-label-md text-label-md">Sign Up</Link>
+          <div className="flex gap-3 pt-4" style={{ borderTop: "1px solid var(--border)" }}>
+            <Link href="/login" className="text-[11px] font-semibold tracking-wide uppercase" style={{ color: "var(--body)" }}>
+              Log In
+            </Link>
+            <Link href="/signup" className="text-[11px] font-semibold tracking-wide uppercase px-4 py-2 rounded-full text-white" style={{ background: "var(--green)" }}>
+              Get Started
+            </Link>
           </div>
         </div>
       )}

@@ -1,31 +1,51 @@
 import Link from "next/link";
+import { Users, Building2, ArrowRight } from "lucide-react";
 
 export default function AffiliateAndBusiness() {
   return (
-    <section className="py-section-gap px-margin-desktop max-w-container-max mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-        <div className="p-12 border border-outline-variant/30 rounded-3xl group hover:border-primary transition-colors duration-500">
-          <span className="material-symbols-outlined text-primary text-4xl mb-6 block">group_add</span>
-          <h3 className="font-headline-lg text-headline-lg mb-4">Affiliate Programme</h3>
-          <p className="font-body-md text-on-surface-variant mb-8">
-            Join our referral network and earn high-tier commissions by recommending Trovu&apos;s luxury services to your network.
+    <section className="py-8 px-6 lg:px-10" style={{ background: "var(--bg)" }}>
+      <div className="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-4">
+
+        <div
+          className="p-8 rounded-2xl border group transition-all hover:shadow-md hover:border-green"
+          style={{ background: "var(--white)", borderColor: "var(--border)" }}
+        >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
+            style={{ background: "var(--green-light)" }}>
+            <Users size={18} style={{ color: "var(--green-deep)" }} />
+          </div>
+          <h3 className="font-serif text-[20px] font-semibold mb-2" style={{ color: "var(--text)" }}>
+            Affiliate Programme
+          </h3>
+          <p className="text-[12px] leading-relaxed mb-6" style={{ color: "var(--muted)" }}>
+            Refer clients or providers to Trovu and earn commission on every booking they make. No cap, no minimums.
           </p>
-          <Link href="/affiliate" className="font-label-md text-label-md text-primary flex items-center gap-2 group/link">
-            Join Affiliate Programme{" "}
-            <span className="material-symbols-outlined group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+          <Link href="/affiliate" className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-wide uppercase group-hover:gap-2.5 transition-all"
+            style={{ color: "var(--green)" }}>
+            Join Programme <ArrowRight size={13} />
           </Link>
         </div>
-        <div className="p-12 border border-outline-variant/30 rounded-3xl group hover:border-secondary transition-colors duration-500">
-          <span className="material-symbols-outlined text-secondary text-4xl mb-6 block">business_center</span>
-          <h3 className="font-headline-lg text-headline-lg mb-4">Business Solutions</h3>
-          <p className="font-body-md text-on-surface-variant mb-8">
-            Scalable solutions for salons, agencies, and gyms. Streamline your operations with our enterprise-grade platform.
+
+        <div
+          className="p-8 rounded-2xl border group transition-all hover:shadow-md hover:border-green"
+          style={{ background: "var(--white)", borderColor: "var(--border)" }}
+        >
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-5"
+            style={{ background: "var(--green-light)" }}>
+            <Building2 size={18} style={{ color: "var(--green-deep)" }} />
+          </div>
+          <h3 className="font-serif text-[20px] font-semibold mb-2" style={{ color: "var(--text)" }}>
+            Business Solutions
+          </h3>
+          <p className="text-[12px] leading-relaxed mb-6" style={{ color: "var(--muted)" }}>
+            Scalable tools for salons, gyms, and agencies. Multi-provider scheduling, team dashboards, and priority support.
           </p>
-          <Link href="/business" className="font-label-md text-label-md text-secondary flex items-center gap-2 group/link">
-            Request Demo{" "}
-            <span className="material-symbols-outlined group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+          <Link href="/business" className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-wide uppercase group-hover:gap-2.5 transition-all"
+            style={{ color: "var(--green)" }}>
+            Request a Demo <ArrowRight size={13} />
           </Link>
         </div>
+
       </div>
     </section>
   );

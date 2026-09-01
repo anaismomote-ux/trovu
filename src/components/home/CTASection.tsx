@@ -1,25 +1,48 @@
 import Link from "next/link";
+import { Zap, ArrowRight } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="mb-20 px-[80px] max-w-[1440px] mx-auto">
-      <div className="bg-primary-container/20 rounded-3xl p-16 lg:p-24 text-center border border-primary-container/30">
-        <h2 className="font-playfair text-[48px] leading-[1.2] tracking-[-0.01em] font-bold text-on-background mb-8">
-          Ready to find the perfect professional?
-        </h2>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <Link
-            href="/search"
-            className="bg-primary text-on-primary px-10 py-5 rounded-full font-manrope text-[14px] font-semibold tracking-[0.05em] hover:bg-on-primary-container transition-all"
-          >
-            Find a Provider
-          </Link>
-          <Link
-            href="/become-a-provider"
-            className="bg-white border border-outline-variant text-on-background px-10 py-5 rounded-full font-manrope text-[14px] font-semibold tracking-[0.05em] hover:bg-surface-container-low transition-all"
-          >
-            Become a Provider
-          </Link>
+    <section className="py-20 px-6 lg:px-10" style={{ background: "var(--bg)" }}>
+      <div className="max-w-[1200px] mx-auto">
+        <div
+          className="rounded-2xl p-12 lg:p-16 text-center relative overflow-hidden"
+          style={{ background: "var(--green)", boxShadow: "var(--shadow-xl)" }}
+        >
+          {/* Soft radial glow */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)" }}
+          />
+
+          <div className="relative z-10">
+            <h2
+              className="font-serif font-semibold mb-4 text-white"
+              style={{ fontSize: "clamp(28px, 4vw, 48px)", lineHeight: 1.1 }}
+            >
+              Find your person today.
+            </h2>
+            <p className="text-[15px] mb-10 max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.75)" }}>
+              Describe what you need — AI finds who&apos;s available near you right now.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/search"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-[12px] font-bold tracking-[0.07em] uppercase transition-all hover:opacity-95"
+                style={{ background: "var(--white)", color: "var(--green-deep)" }}
+              >
+                <Zap size={13} fill="currentColor" />
+                Match Me Now
+              </Link>
+              <Link
+                href="/become-a-provider"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-[12px] font-bold tracking-[0.07em] uppercase border-2 border-white/40 text-white transition-all hover:bg-white/10"
+              >
+                Become a Provider
+                <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>

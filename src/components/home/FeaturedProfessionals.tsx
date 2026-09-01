@@ -1,169 +1,113 @@
 import Link from "next/link";
+import { MapPin, Star, ShieldCheck } from "lucide-react";
+
+const PROVIDERS = [
+  { name: "Jasmine Clarke",  role: "Natural Hair Specialist",  location: "Manchester",   price: 100, rating: 4.9, reviews: 87,  tier: "T1", category: "Hair",     slug: "jasmine-clarke",  online: true  },
+  { name: "Marcus Adeyemi",  role: "Performance Coach",        location: "Manchester",   price: 60,  rating: 5.0, reviews: 43,  tier: "T1", category: "Fitness",  slug: "marcus-adeyemi",  online: true  },
+  { name: "Unique Okonkwo",  role: "Nail Artist",              location: "Salford",      price: 65,  rating: 4.8, reviews: 112, tier: "T1", category: "Nails",    slug: "unique-okonkwo",  online: false },
+  { name: "Tee Williams",    role: "Hair & Colour Specialist", location: "Manchester",   price: 80,  rating: 4.7, reviews: 54,  tier: "T1", category: "Hair",     slug: "tee-williams",    online: true  },
+];
+
+const AVATAR_COLORS = ["#6BA07E", "#C4883A", "#7B5EA7", "#3A7ABE"];
+
+function Avatar({ name, color }: { name: string; color: string }) {
+  return (
+    <div
+      className="w-full aspect-square flex items-center justify-center"
+      style={{ background: `linear-gradient(135deg, ${color}, ${color}99)` }}
+    >
+      <span
+        className="font-serif text-white font-semibold"
+        style={{ fontSize: "clamp(48px, 8vw, 72px)" }}
+      >
+        {name[0]}
+      </span>
+    </div>
+  );
+}
 
 export default function FeaturedProfessionals() {
   return (
-    <section className="py-section-gap bg-surface-container-low">
-      <div className="px-margin-desktop max-w-container-max mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-headline-lg text-headline-lg text-on-background mb-4">Elite Professionals</h2>
-          <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
-            Vetted experts hand-picked for their exceptional craft and professional integrity.
-          </p>
+    <section className="py-20 px-6 lg:px-10" style={{ background: "var(--bg)" }}>
+      <div className="max-w-[1200px] mx-auto">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-[10px] font-bold tracking-[0.1em] uppercase mb-2" style={{ color: "var(--green)" }}>
+              Online now
+            </p>
+            <h2 className="font-serif text-[32px] font-semibold" style={{ color: "var(--text)" }}>
+              Ready to take your booking.
+            </h2>
+          </div>
+          <Link
+            href="/search"
+            className="hidden sm:block text-[11px] font-bold tracking-[0.07em] uppercase"
+            style={{ color: "var(--green)" }}
+          >
+            See all →
+          </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
 
-          {/* Card 1 */}
-          <div className="bg-white rounded-xl overflow-hidden editorial-shadow group border border-outline-variant/10">
-            <div className="relative aspect-square">
-              <img
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                alt="Professional headshot of Elena Vance, Master Hair Colorist"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA16ZA8YtoFHfFL3kpiixDu8b7EEWSQzVDkSPjwFBv9xEN-RH8ebiM4p7SMlEOXF4GraDrN8pSpU-Ud40rfB3AdxnoRejjfXdEIcY6I_nt4kLKTA4DbHHtSe3ciEoK3hX8LfgZEh5RNymNc_I2XBxDRiyFNDneW4ftK0PWUOWKfWP2Qx_oqlR5Ze25sdjXBJ1UcL_O8_9gHpC8aWV5MM1-fSeWkdK7zkGpsbToVVWLV2GXFDwoG6lNDEKpFt_Km_6Usce3HvFeSQQA-"
-              />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-1">
-                <span className="material-symbols-outlined text-tertiary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                <span className="text-label-sm font-label-sm text-on-surface">Verified</span>
-              </div>
-            </div>
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-1">
-                <h3 className="font-headline-md text-headline-md text-on-surface leading-tight">Elena Vance</h3>
-                <div className="flex items-center gap-1 text-primary">
-                  <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                  <span className="text-label-md font-label-md">4.9</span>
-                </div>
-              </div>
-              <p className="font-body-md text-on-surface-variant mb-4">Master Hair Colorist</p>
-              <div className="flex items-center gap-2 mb-6 text-on-surface-variant">
-                <span className="material-symbols-outlined text-sm">location_on</span>
-                <span className="text-label-sm font-label-sm">Mayfair, London</span>
-              </div>
-              <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
-                <div>
-                  <p className="text-label-sm font-label-sm text-on-surface-variant">Starts from</p>
-                  <p className="font-headline-md text-headline-md text-primary">£120</p>
-                </div>
-                <Link href="/providers/elena-vance" className="bg-primary text-on-primary px-5 py-2.5 rounded-full font-label-md text-label-md hover:bg-on-primary-container transition-all">
-                  Book Now
-                </Link>
-              </div>
-            </div>
-          </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {PROVIDERS.map((p, i) => (
+            <Link
+              key={p.slug}
+              href={`/providers/${p.slug}`}
+              className="group rounded-xl overflow-hidden border transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+              style={{ background: "var(--white)", borderColor: "var(--border)" }}
+            >
+              {/* Avatar */}
+              <div className="relative aspect-square overflow-hidden">
+                <Avatar name={p.name} color={AVATAR_COLORS[i]} />
 
-          {/* Card 2 */}
-          <div className="bg-white rounded-xl overflow-hidden editorial-shadow group border border-outline-variant/10">
-            <div className="relative aspect-square">
-              <img
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                alt="Professional portrait of Marcus Thorne, Performance Coach"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoATZfCOfhSFh7tk8-UQqxK1_2LSd3D7jR50CHWNjWsOh-N4g1w1Byt7IXYh3VQJ2QHyxtXkj9WU5p3P6fy1CF6rE4ttDjOb7KtucVn-PpHVW-Cz9mRoJ9FWUHt-Lb0mlt4pf81NdeD2KTHrdHccu4Z_V0xgZvKYBIykRRTFIITNss0-dFs4lD7YtgPP_6g6BXYJB_OkZZmBmmzH1HJl6n8VABGbU5SdrTmAm_2zHib2r6zDdoshYS7PI_g89aBhbaIIxWIoMSBCmE"
-              />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-1">
-                <span className="material-symbols-outlined text-tertiary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                <span className="text-label-sm font-label-sm text-on-surface">Verified</span>
-              </div>
-            </div>
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-1">
-                <h3 className="font-headline-md text-headline-md text-on-surface leading-tight">Marcus Thorne</h3>
-                <div className="flex items-center gap-1 text-primary">
-                  <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                  <span className="text-label-md font-label-md">5.0</span>
-                </div>
-              </div>
-              <p className="font-body-md text-on-surface-variant mb-4">Performance Coach</p>
-              <div className="flex items-center gap-2 mb-6 text-on-surface-variant">
-                <span className="material-symbols-outlined text-sm">location_on</span>
-                <span className="text-label-sm font-label-sm">Chelsea, London</span>
-              </div>
-              <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
-                <div>
-                  <p className="text-label-sm font-label-sm text-on-surface-variant">Starts from</p>
-                  <p className="font-headline-md text-headline-md text-primary">£85</p>
-                </div>
-                <Link href="/providers/marcus-thorne" className="bg-primary text-on-primary px-5 py-2.5 rounded-full font-label-md text-label-md hover:bg-on-primary-container transition-all">
-                  Book Now
-                </Link>
-              </div>
-            </div>
-          </div>
+                {/* Online dot */}
+                {p.online && (
+                  <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 rounded-full"
+                    style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse-dot" />
+                    <span className="text-[9px] font-bold tracking-wide uppercase" style={{ color: "var(--green)" }}>Online</span>
+                  </div>
+                )}
 
-          {/* Card 3 */}
-          <div className="bg-white rounded-xl overflow-hidden editorial-shadow group border border-outline-variant/10">
-            <div className="relative aspect-square">
-              <img
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                alt="Professional portrait of Sophie Laurent, Interior Consultant"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuByRGDCxIQMs_daaMIQ3Fz-tJGe5vCZWSR16UZvNxPZrlDhXGCaWpNLVuGadA6muAAv0z5X_xTk_Ac1QEg6Y-PAjv8IjesuHvv_sUxd_rj48ZHHhUahA6obPfW1fSY7zk0ulYIw-yhNsIick-ETc3bC_ej5KFqICvWz799i1xDMOda8maLbl7Q3mk814zoRZFfAuYEhzEz2FbHM6uZwCkN3LCmOMeT2uA3ALoeMoR6kIwGZVt1TXRRoqTKaFWEvCnIFnFLDO4Q3l1gw"
-              />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-1">
-                <span className="material-symbols-outlined text-tertiary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                <span className="text-label-sm font-label-sm text-on-surface">Verified</span>
-              </div>
-            </div>
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-1">
-                <h3 className="font-headline-md text-headline-md text-on-surface leading-tight">Sophie Laurent</h3>
-                <div className="flex items-center gap-1 text-primary">
-                  <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                  <span className="text-label-md font-label-md">4.8</span>
+                {/* Verified badge */}
+                <div className="absolute bottom-3 left-3 flex items-center gap-1 px-2 py-1 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(8px)" }}>
+                  <ShieldCheck size={10} style={{ color: "var(--green)" }} />
+                  <span className="text-[9px] font-bold" style={{ color: "var(--green-deep)" }}>{p.tier} Verified</span>
                 </div>
               </div>
-              <p className="font-body-md text-on-surface-variant mb-4">Interior Consultant</p>
-              <div className="flex items-center gap-2 mb-6 text-on-surface-variant">
-                <span className="material-symbols-outlined text-sm">location_on</span>
-                <span className="text-label-sm font-label-sm">Kensington, London</span>
-              </div>
-              <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
-                <div>
-                  <p className="text-label-sm font-label-sm text-on-surface-variant">Starts from</p>
-                  <p className="font-headline-md text-headline-md text-primary">£200</p>
-                </div>
-                <Link href="/providers/sophie-laurent" className="bg-primary text-on-primary px-5 py-2.5 rounded-full font-label-md text-label-md hover:bg-on-primary-container transition-all">
-                  Book Now
-                </Link>
-              </div>
-            </div>
-          </div>
 
-          {/* Card 4 */}
-          <div className="bg-white rounded-xl overflow-hidden editorial-shadow group border border-outline-variant/10">
-            <div className="relative aspect-square">
-              <img
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                alt="Professional portrait of David Chen, Private Math Tutor"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGsdVO_3jnW4PfQsAKYmrg8QfjgIgpAVlIUFDl8vyPBlAeA06fRfthB5d3JcCRBbzeLtgrakRLbBySDDsrjTE0XxpI9XwXmDm1uwiplqmPIEKGGve6325zE1XhK8amMQHRt6OEDvCU0uV17AwujNYjRsNjR0yYaU91lI6KwpDj9q32aqQdZDKoxVvHtFJwmCxMEcsFSGs_dxtrjUBhxM_BAOrqpJJCZX6mbjE9WJkFI6K0v4aZy5ymG7WyALAr3iygUfnAJ7DWw_nT"
-              />
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-1">
-                <span className="material-symbols-outlined text-tertiary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                <span className="text-label-sm font-label-sm text-on-surface">Verified</span>
-              </div>
-            </div>
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-1">
-                <h3 className="font-headline-md text-headline-md text-on-surface leading-tight">David Chen</h3>
-                <div className="flex items-center gap-1 text-primary">
-                  <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                  <span className="text-label-md font-label-md">4.9</span>
+              {/* Info */}
+              <div className="p-4">
+                <div className="flex items-start justify-between mb-0.5">
+                  <h3 className="font-serif text-[15px] font-semibold leading-tight" style={{ color: "var(--text)" }}>
+                    {p.name}
+                  </h3>
+                  <div className="flex items-center gap-0.5 flex-shrink-0">
+                    <Star size={10} fill="var(--amber)" style={{ color: "var(--amber)" }} />
+                    <span className="text-[11px] font-bold" style={{ color: "var(--text)" }}>{p.rating}</span>
+                  </div>
+                </div>
+                <p className="text-[11px] mb-2" style={{ color: "var(--muted)" }}>{p.role}</p>
+                <div className="flex items-center gap-1 mb-3">
+                  <MapPin size={10} style={{ color: "var(--muted)" }} />
+                  <span className="text-[10px]" style={{ color: "var(--muted)" }}>{p.location} · {p.reviews} reviews</span>
+                </div>
+                <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--border)" }}>
+                  <div>
+                    <p className="text-[9px] font-bold tracking-wide uppercase" style={{ color: "var(--muted)" }}>From</p>
+                    <p className="font-serif text-[18px] font-semibold" style={{ color: "var(--green)" }}>£{p.price}</p>
+                  </div>
+                  <span
+                    className="text-[10px] font-bold tracking-wide uppercase px-3 py-1.5 rounded-lg transition-colors group-hover:bg-green group-hover:text-white"
+                    style={{ background: "var(--green-light)", color: "var(--green-deep)" }}
+                  >
+                    Book
+                  </span>
                 </div>
               </div>
-              <p className="font-body-md text-on-surface-variant mb-4">Private Math Tutor</p>
-              <div className="flex items-center gap-2 mb-6 text-on-surface-variant">
-                <span className="material-symbols-outlined text-sm">location_on</span>
-                <span className="text-label-sm font-label-sm">Richmond, London</span>
-              </div>
-              <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
-                <div>
-                  <p className="text-label-sm font-label-sm text-on-surface-variant">Starts from</p>
-                  <p className="font-headline-md text-headline-md text-primary">£60</p>
-                </div>
-                <Link href="/providers/david-chen" className="bg-primary text-on-primary px-5 py-2.5 rounded-full font-label-md text-label-md hover:bg-on-primary-container transition-all">
-                  Book Now
-                </Link>
-              </div>
-            </div>
-          </div>
-
+            </Link>
+          ))}
         </div>
       </div>
     </section>
