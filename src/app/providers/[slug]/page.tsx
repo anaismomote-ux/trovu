@@ -1,178 +1,229 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { Star, MapPin, ShieldCheck, Clock, ChevronLeft, Play, Calendar, MessageSquare, Zap } from "lucide-react";
+
+const PROVIDER = {
+  name: "Jasmine Clarke",
+  title: "Natural Hair Specialist",
+  location: "Moss Side, Manchester",
+  rating: 4.9,
+  reviews: 87,
+  price: 100,
+  online: true,
+  initial: "J",
+  color: "#6BA07E",
+  bio: "Specialist in natural hair care, protective styles, and knotless braids. 8+ years experience working with all curl types. I come to you — fully equipped mobile setup.",
+  services: [
+    { name: "Knotless Braids", duration: "3–5 hrs", price: 120 },
+    { name: "Silk Press", duration: "2 hrs", price: 80 },
+    { name: "Natural Twist Set", duration: "2 hrs", price: 70 },
+    { name: "Loc Maintenance", duration: "1.5 hrs", price: 60 },
+    { name: "Consultation", duration: "30 min", price: 0 },
+  ],
+  portfolio: ["#6BA07E", "#4A7A60", "#7BA090", "#5A9070", "#6BA07E", "#3A6A50"],
+  verifications: ["T1 — ID Verified", "T2 — Home Access + Basic DBS"],
+  responseTime: "Usually within 30 min",
+  completionRate: "98%",
+};
+
+const REVIEWS = [
+  { name: "Amara D.", rating: 5, text: "Jasmine was incredible — arrived on time, was super professional and my braids are absolutely perfect.", initial: "A", color: "#C4883A" },
+  { name: "Priya M.", rating: 5, text: "Best natural hair specialist in Manchester. Book her before she gets even busier!", initial: "P", color: "#6BA07E" },
+  { name: "Kezia O.", rating: 5, text: "I've been to so many specialists and none compare. She genuinely cares about hair health.", initial: "K", color: "#7B5EA7" },
+];
 
 export default function ProviderProfilePage() {
+  const [selectedService, setSelectedService] = useState(0);
+  const [tab, setTab] = useState<"services" | "portfolio" | "reviews">("services");
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero */}
-      <div className="bg-surface-container-low py-16 px-[80px] max-w-[1440px] mx-auto">
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
-          <div className="relative">
-            <img
-              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80"
-              alt="Elena Vance"
-              className="w-48 h-48 rounded-2xl object-cover editorial-shadow"
-            />
-            <div className="absolute -bottom-3 -right-3 bg-white rounded-full px-3 py-1 flex items-center gap-1 editorial-shadow border border-outline-variant/20">
-              <span className="material-symbols-outlined text-tertiary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-              <span className="font-manrope text-[12px] font-semibold text-on-surface">Verified</span>
-            </div>
-          </div>
-
-          <div className="flex-1">
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
-              <div>
-                <h1 className="font-playfair text-[48px] font-bold text-on-background mb-2">Elena Vance</h1>
-                <p className="font-manrope text-[18px] text-on-surface-variant mb-4">Master Hair Colorist</p>
-                <div className="flex items-center gap-6 flex-wrap">
-                  <div className="flex items-center gap-1 text-primary">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    ))}
-                    <span className="font-manrope text-[14px] font-semibold ml-1">4.9</span>
-                    <span className="font-manrope text-[14px] text-on-surface-variant">(142 reviews)</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-on-surface-variant">
-                    <span className="material-symbols-outlined text-sm">location_on</span>
-                    <span className="font-manrope text-[14px]">Mayfair, London</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-on-surface-variant">
-                    <span className="material-symbols-outlined text-sm">schedule</span>
-                    <span className="font-manrope text-[14px]">Responds within 1 hour</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 editorial-shadow border border-outline-variant/20 min-w-[300px]">
-                <p className="font-manrope text-[12px] font-semibold text-on-surface-variant mb-1">Starts from</p>
-                <p className="font-playfair text-[48px] font-bold text-primary mb-6">£120</p>
-                <Link
-                  href="/bookings/new"
-                  className="w-full bg-primary text-on-primary py-4 rounded-full font-manrope text-[14px] font-semibold tracking-[0.05em] hover:bg-on-primary-container transition-all text-center block mb-3"
-                >
-                  Book Now
-                </Link>
-                <button className="w-full border border-outline-variant text-on-surface py-4 rounded-full font-manrope text-[14px] font-semibold tracking-[0.05em] hover:bg-surface-container-low transition-all">
-                  Send Message
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      {/* Back */}
+      <div className="px-6 py-4 max-w-[1200px] mx-auto">
+        <Link href="/search" className="inline-flex items-center gap-1.5 text-[12px] font-semibold" style={{ color: "var(--muted)" }}>
+          <ChevronLeft size={14} /> Back to search
+        </Link>
       </div>
 
-      {/* Content */}
-      <div className="px-[80px] max-w-[1440px] mx-auto py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2 space-y-12">
-            {/* About */}
-            <section>
-              <h2 className="font-playfair text-[32px] font-semibold mb-6">About</h2>
-              <p className="font-manrope text-[16px] text-on-surface-variant leading-relaxed">
-                With over 12 years of experience in luxury hair colouring, Elena has built a reputation for transformative colour work at the highest level. Trained in Paris and London, she specialises in balayage, colour correction, and bespoke toning treatments that complement each client&apos;s unique features.
-              </p>
-            </section>
-
-            {/* Services */}
-            <section>
-              <h2 className="font-playfair text-[32px] font-semibold mb-6">Services</h2>
-              <div className="space-y-4">
-                {[
-                  { name: "Full Balayage", duration: "3 hours", price: "£280" },
-                  { name: "Colour Refresh", duration: "1.5 hours", price: "£120" },
-                  { name: "Glossing Treatment", duration: "45 min", price: "£80" },
-                  { name: "Colour Consultation", duration: "30 min", price: "Free" },
-                ].map((service) => (
-                  <div key={service.name} className="flex items-center justify-between p-6 bg-white rounded-xl border border-outline-variant/20 editorial-shadow">
-                    <div>
-                      <h4 className="font-playfair text-[20px] font-semibold mb-1">{service.name}</h4>
-                      <p className="font-manrope text-[14px] text-on-surface-variant">{service.duration}</p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span className="font-playfair text-[24px] font-semibold text-primary">{service.price}</span>
-                      <button className="bg-primary text-on-primary px-5 py-2 rounded-full font-manrope text-[14px] font-semibold hover:bg-on-primary-container transition-all">
-                        Book
-                      </button>
-                    </div>
-                  </div>
-                ))}
+      <div className="max-w-[1200px] mx-auto px-6 pb-16">
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Main */}
+          <div className="lg:col-span-2">
+            {/* Profile header */}
+            <div className="rounded-2xl overflow-hidden mb-6" style={{ background: "var(--white)", border: "1px solid var(--border)" }}>
+              {/* Hero */}
+              <div className="relative h-52 flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${PROVIDER.color}40, ${PROVIDER.color}90)` }}>
+                <span className="font-serif text-[80px] font-semibold text-white/70">{PROVIDER.initial}</span>
+                {/* Video intro button */}
+                <button className="absolute bottom-4 right-4 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-bold" style={{ background: "rgba(255,255,255,0.9)", color: "var(--text)" }}>
+                  <Play size={12} fill="var(--green)" style={{ color: "var(--green)" }} /> Watch intro
+                </button>
+                {PROVIDER.online && (
+                  <span className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold" style={{ background: "var(--green)", color: "white" }}>
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> ONLINE NOW
+                  </span>
+                )}
               </div>
-            </section>
 
-            {/* Portfolio */}
-            <section>
-              <h2 className="font-playfair text-[32px] font-semibold mb-6">Portfolio</h2>
-              <div className="grid grid-cols-3 gap-4">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="aspect-square rounded-xl overflow-hidden">
-                    <img
-                      src={`https://images.unsplash.com/photo-${["1560869713-7d0a29430803", "1522337360826-a8e79f2ab3c2", "1522338242992-e1a54906a8da", "1546961342-ea5f71b193f5", "1580618672591-eb180b1a973f", "1522337660-f5d02f299f72"][i]}?w=300&q=80`}
-                      alt={`Portfolio ${i + 1}`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h1 className="font-serif text-[28px] font-semibold" style={{ color: "var(--text)" }}>{PROVIDER.name}</h1>
+                    <p className="text-[14px]" style={{ color: "var(--muted)" }}>{PROVIDER.title}</p>
                   </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Reviews */}
-            <section>
-              <h2 className="font-playfair text-[32px] font-semibold mb-6">Reviews</h2>
-              <div className="space-y-6">
-                {[
-                  { name: "Sarah M.", date: "May 2026", rating: 5, text: "Absolutely incredible work. Elena completely transformed my hair and I couldn't be happier." },
-                  { name: "Priya K.", date: "April 2026", rating: 5, text: "The best balayage I've ever had. Elena listened carefully and delivered beyond expectations." },
-                  { name: "Charlotte B.", date: "March 2026", rating: 4, text: "Exceptional skill and professionalism. Will definitely be returning." },
-                ].map((review) => (
-                  <div key={review.name} className="bg-white p-8 rounded-xl editorial-shadow border border-outline-variant/10">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <p className="font-manrope text-[14px] font-semibold text-on-surface">{review.name}</p>
-                        <p className="font-manrope text-[12px] text-on-surface-variant">{review.date}</p>
-                      </div>
-                      <div className="flex text-primary">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <span key={i} className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                        ))}
-                      </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <div className="flex items-center gap-1">
+                      <Star size={14} fill="var(--amber)" style={{ color: "var(--amber)" }} />
+                      <span className="font-semibold text-[15px]" style={{ color: "var(--text)" }}>{PROVIDER.rating}</span>
+                      <span className="text-[12px]" style={{ color: "var(--muted)" }}>({PROVIDER.reviews})</span>
                     </div>
-                    <p className="font-manrope text-[16px] text-on-surface-variant italic">&ldquo;{review.text}&rdquo;</p>
+                    <p className="text-[11px] font-semibold" style={{ color: "var(--green)" }}>From £{PROVIDER.price}</p>
                   </div>
-                ))}
-              </div>
-            </section>
-          </div>
+                </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl p-6 editorial-shadow border border-outline-variant/10">
-              <h3 className="font-playfair text-[20px] font-semibold mb-4">Details</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-sm">badge</span>
-                  <span className="font-manrope text-[14px] text-on-surface-variant">5-step verified</span>
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <div className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--muted)" }}>
+                    <MapPin size={13} style={{ color: "var(--green)" }} /> {PROVIDER.location}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--muted)" }}>
+                    <Clock size={13} style={{ color: "var(--green)" }} /> {PROVIDER.responseTime}
+                  </div>
+                  <div className="flex items-center gap-1.5 text-[12px]" style={{ color: "var(--muted)" }}>
+                    <ShieldCheck size={13} style={{ color: "var(--green)" }} /> {PROVIDER.verifications[0]}
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-sm">workspace_premium</span>
-                  <span className="font-manrope text-[14px] text-on-surface-variant">12 years experience</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-sm">home_work</span>
-                  <span className="font-manrope text-[14px] text-on-surface-variant">Mobile & salon available</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-primary text-sm">language</span>
-                  <span className="font-manrope text-[14px] text-on-surface-variant">English, French</span>
-                </div>
+
+                <p className="text-[13px] leading-relaxed" style={{ color: "var(--body)" }}>{PROVIDER.bio}</p>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-6 editorial-shadow border border-outline-variant/10">
-              <h3 className="font-playfair text-[20px] font-semibold mb-4">Availability</h3>
-              <div className="space-y-2">
-                {["Monday", "Tuesday", "Thursday", "Friday", "Saturday"].map((day) => (
-                  <div key={day} className="flex justify-between items-center">
-                    <span className="font-manrope text-[14px] text-on-surface-variant">{day}</span>
-                    <span className="font-manrope text-[12px] font-semibold text-tertiary">9am – 6pm</span>
+            {/* Tabs */}
+            <div className="flex gap-1 p-1 rounded-xl mb-6" style={{ background: "var(--surface-2)" }}>
+              {(["services", "portfolio", "reviews"] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className="flex-1 py-2.5 rounded-lg text-[12px] font-semibold capitalize transition-all"
+                  style={{
+                    background: tab === t ? "var(--white)" : "transparent",
+                    color: tab === t ? "var(--text)" : "var(--muted)",
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+
+            {tab === "services" && (
+              <div className="space-y-3">
+                {PROVIDER.services.map((s, i) => (
+                  <button
+                    key={s.name}
+                    onClick={() => setSelectedService(i)}
+                    className="w-full p-5 rounded-2xl border text-left transition-all"
+                    style={{
+                      background: selectedService === i ? "var(--green-light)" : "var(--white)",
+                      borderColor: selectedService === i ? "var(--green)" : "var(--border)",
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-[14px] font-semibold" style={{ color: "var(--text)" }}>{s.name}</p>
+                        <p className="text-[12px] mt-0.5" style={{ color: "var(--muted)" }}>
+                          <Clock size={11} className="inline mr-1" /> {s.duration}
+                        </p>
+                      </div>
+                      <p className="font-serif text-[22px] font-semibold" style={{ color: "var(--green)" }}>
+                        {s.price === 0 ? "Free" : `£${s.price}`}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {tab === "portfolio" && (
+              <div className="grid grid-cols-3 gap-3">
+                {PROVIDER.portfolio.map((color, i) => (
+                  <div
+                    key={i}
+                    className="aspect-square rounded-2xl flex items-center justify-center cursor-pointer transition-all hover:opacity-80"
+                    style={{ background: `linear-gradient(135deg, ${color}60, ${color})` }}
+                  >
+                    <span className="font-serif text-[28px] font-semibold text-white/60">{PROVIDER.initial}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {tab === "reviews" && (
+              <div className="space-y-4">
+                {REVIEWS.map((r) => (
+                  <div key={r.name} className="p-5 rounded-2xl" style={{ background: "var(--white)", border: "1px solid var(--border)" }}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full flex items-center justify-center font-serif text-white font-semibold" style={{ background: r.color }}>
+                          {r.initial}
+                        </div>
+                        <p className="text-[13px] font-semibold" style={{ color: "var(--text)" }}>{r.name}</p>
+                      </div>
+                      <div className="flex gap-0.5">
+                        {[...Array(r.rating)].map((_, j) => <Star key={j} size={11} fill="var(--amber)" style={{ color: "var(--amber)" }} />)}
+                      </div>
+                    </div>
+                    <p className="text-[13px] leading-relaxed italic" style={{ color: "var(--body)" }}>&ldquo;{r.text}&rdquo;</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Booking sidebar */}
+          <div className="space-y-4">
+            <div className="sticky top-24 space-y-4">
+              <div className="p-6 rounded-2xl" style={{ background: "var(--white)", border: "1.5px solid var(--border)" }}>
+                <p className="text-[12px] font-bold tracking-wide uppercase mb-1" style={{ color: "var(--muted)" }}>
+                  {PROVIDER.services[selectedService]?.name}
+                </p>
+                <p className="font-serif text-[32px] font-semibold mb-1" style={{ color: "var(--green)" }}>
+                  £{PROVIDER.services[selectedService]?.price || "Free"}
+                </p>
+                <p className="text-[12px] mb-5" style={{ color: "var(--muted)" }}>
+                  <Clock size={11} className="inline mr-1" />
+                  {PROVIDER.services[selectedService]?.duration}
+                </p>
+
+                <Link
+                  href={`/book/jasmine-clarke`}
+                  className="w-full py-4 rounded-xl text-[13px] font-bold tracking-wide uppercase text-white flex items-center justify-center gap-2 transition-all hover:opacity-90 mb-3"
+                  style={{ background: "var(--green)" }}
+                >
+                  <Calendar size={14} /> Book Direct
+                </Link>
+
+                {PROVIDER.online && (
+                  <Link
+                    href="/book/broadcast"
+                    className="w-full py-3.5 rounded-xl text-[12px] font-bold tracking-wide uppercase flex items-center justify-center gap-2 transition-all hover:opacity-80"
+                    style={{ background: "var(--green-light)", color: "var(--green)" }}
+                  >
+                    <Zap size={12} /> Broadcast Request
+                  </Link>
+                )}
+
+                <button className="w-full mt-3 py-3 rounded-xl border text-[12px] font-semibold flex items-center justify-center gap-2 transition-all hover:opacity-80" style={{ border: "1.5px solid var(--border)", color: "var(--muted)" }}>
+                  <MessageSquare size={13} /> Message First
+                </button>
+              </div>
+
+              <div className="p-5 rounded-2xl" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
+                <p className="text-[11px] font-bold tracking-widest uppercase mb-3" style={{ color: "var(--muted)" }}>Verifications</p>
+                {PROVIDER.verifications.map((v) => (
+                  <div key={v} className="flex items-center gap-2 py-2 border-b last:border-0" style={{ borderColor: "var(--border)" }}>
+                    <ShieldCheck size={13} style={{ color: "var(--green)" }} />
+                    <span className="text-[12px]" style={{ color: "var(--body)" }}>{v}</span>
                   </div>
                 ))}
               </div>
